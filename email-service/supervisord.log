@@ -1,0 +1,13 @@
+2025-05-26 19:55:29,652 WARN For [program:email-consumer], redirect_stderr=true but stderr_logfile has also been set to a filename, the filename has been ignored
+2025-05-26 19:55:29,653 INFO Set uid to user 0 succeeded
+2025-05-26 19:55:29,656 INFO supervisord started with pid 1
+2025-05-26 19:55:30,661 INFO spawned: 'email-consumer' with pid 6
+2025-05-26 19:55:30,841 WARN exited: email-consumer (exit status 1; not expected)
+2025-05-26 19:55:31,842 INFO spawned: 'email-consumer' with pid 9
+2025-05-26 19:55:32,012 WARN exited: email-consumer (exit status 1; not expected)
+2025-05-26 19:55:34,016 INFO spawned: 'email-consumer' with pid 12
+2025-05-26 19:55:34,204 WARN exited: email-consumer (exit status 1; not expected)
+2025-05-26 19:55:37,209 INFO spawned: 'email-consumer' with pid 15
+2025-05-26 19:55:37,377 WARN exited: email-consumer (exit status 1; not expected)
+2025-05-26 19:55:38,378 INFO gave up: email-consumer entered FATAL state, too many start retries too quickly
+2025-05-26 20:02:22,781 WARN received SIGQUIT indicating exit request
