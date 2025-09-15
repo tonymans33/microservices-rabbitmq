@@ -70,12 +70,11 @@ graph TB
     
     subgraph "Load Balancers"
         N1[Nginx User :8101]
-        N2[Nginx Email :8002]
     end
     
     subgraph "Core Services"
         US[User Service<br/>Laravel :80]
-        ES[Email Service<br/>Laravel :80]
+        ES[Email Service<br/>Laravel (worker)]
         NS[Notification Service<br/>Node.js :3000]
         AS[Analytics Service<br/>Python :4000]
     end
@@ -96,9 +95,7 @@ graph TB
     
     C --> K
     K --> N1
-    K --> N2
     N1 --> US
-    N2 --> ES
     
     US --> RMQ
     ES --> RMQ
@@ -161,9 +158,7 @@ Core authentication and user management service with wallet functionality.
 - `POST /users/wallet/deposit` - Wallet deposit (authenticated)
 
 ### 📧 Email Service (Laravel)
-**Port:** `8002` | **Database:** `email_service`
-
-Handles all email-related operations with background queue processing.
+Internal worker that consumes RabbitMQ messages to send emails and log activity. No client-facing API.
 
 **Features:**
 - Welcome email templates
@@ -177,7 +172,7 @@ Handles all email-related operations with background queue processing.
 - `WelcomeEmail` - User registration emails
 - `WalletDepositEmail` - Transaction notifications
 
-### 🔔 Notification Service (Node.js)
+### �� Notification Service (Node.js)
 **Port:** `3000`
 
 Real-time Discord notifications for system events.
@@ -244,7 +239,6 @@ docker-compose logs -f
 |---------|-----|-------------|
 | **Kong Gateway** | http://localhost:8000 | - |
 | **User Service** | http://localhost:8101 | - |
-| **Email Service** | http://localhost:8002 | - |
 | **Notification Service** | http://localhost:3000 | - |
 | **Analytics Service** | http://localhost:4000 | - |
 | **RabbitMQ Management** | http://localhost:15672 | admin/password |
@@ -357,7 +351,7 @@ sequenceDiagram
 
 ---
 
-## �� Monitoring & Management
+## 📈 Monitoring & Management
 
 ### Health Checks
 - **User Service:** `GET /users/health`
